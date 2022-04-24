@@ -1,0 +1,256 @@
+<html>
+<head>
+<style>
+* {
+
+box-sizing: border-box;
+       }
+body {
+font: 16px Arial;
+}
+autocomplete {
+/*the container must be positioned relative: */           position: relative;
+display: inline-block;
+}
+input {
+border: 1px solid transparent; background-color: #f1f1f1; padding: 10px;
+font-size: 16px;
+}
+input[type=text] {
+background-color: #f1f1f1; width: 100%;
+}
+
+input[type=submit]{ background-color: DodgerBlue; color: #fff;
+cursor: pointer;
+
+}
+.autocomplete-items { position: absolute;
+border: 1px solid #d4d4d4; border-bottom: none; border-top: none;
+z-index: 99;
+
+/*position the autocomplete items to be the same width as the container:*/ top: 100%;
+left: 0;
+      right: 0;
+}
+autocomplete-items div { 
+padding: 10px;
+cursor: pointer;          background color:#fff;
+        border-bottom: 1px solid #d4d4d4;
+autocomplete-items div:hover {
+/*when hovering an item:*/ background-color: #e9e9e9;
+}
+
+autocomplete-active {
+/*when navigating through the items using the arrow keys:*/ background-color: DodgerBlue !important;
+color: #ffffff;
+}
+table{
+	border-color: green; 
+	background-color: azure; 
+	font-size:20;font-color:red;
+	font-family: Times New Roman; 
+	text-align: center; height: 200px;width: 200px;
+}
+table: hover {
+	color: blue;
+	}
+h1{
+	color: green yellow;
+	}
+h1:hover{
+	color: yellow;
+	}
+body{background-image: URL("pic/11.jpg"); background-repeat: no-repeat; background-size: cover;}
+input[type=text]: focus{
+	background-color: light blue;
+	}
+input[type=email]:focus{
+	background-color: light blue; 
+input[type=password]:focus{
+	background-color: light blue;
+}
+input[type=submit], input[type=reset] {
+		background-color: green; 
+		border: none;
+		color: white; 
+		padding: 16px 32px;
+		text-decoration: none; 
+		margin: 4px2px; 
+		cursor: pointer;
+}
+* {
+
+box-sizing: border-box;
+/* Add padding to containers */
+.container1{    padding: 16px;
+background-color: white;
+}
+/* Full-width input fields */ input[type=text], input[type=password] {
+		width: 100%; 
+		padding: 15px;
+.registerbtn {
+	background-color: #4CAF50; color: white;
+	padding: 16px 20px;
+	 margin: 8px 0; 
+	border: none; 
+	cursor: pointer; width: 100%;
+	opacity: 0.9;
+}
+
+
+.registerbtn:hove{opacity: 1;
+}
+/* Add a blue text color to links */
+a {
+color: dodgerblue;
+}
+/* Set a grey background color and center the text of the "sign in" section */
+.r	ignin {
+	background-color: #f1f1f1; 
+text-align:center;
+</style></head>
+
+<body>
+<div class="container1">
+<h1 align="center">REGISTRATION FORM</h1>
+<form action="picformserv" method="post" enctype="multipart/form-data" autocomplete="off">
+<table align="center" border="10" cellpadding="5">
+<tr>
+<th>Name</th><td>
+<input type="text" id="n" name="n" placeholder="write your name" maxsize="20"    required/>
+</td><span id="a" text="red"></span></td>
+</tr>
+<tr>
+<th>Father Name</th><td>
+<input type="text" id="fn" placeholder="write your father's name" name="fn" required/>
+</td><span id="b"></span></td>
+</tr>
+<tr>
+<th>Email</th><td>
+<input type="email" placeholder="your email id..." name="e" required/></td>
+</tr>
+<tr>
+<th>Password</th><td>
+
+
+<input type="password" placeholder="create password.." name="p" required/></td>
+</tr>
+<tr>
+<th>Gender</th>
+<td><input type="radio" value="male" name="gen"/>Male
+
+<input type="radio" value="female" name="gen"/>Female</td>
+</tr>
+<tr>
+<th>Age</th><td><select name="a" placeholder="choose your age">
+<script>
+for(var i=10;i<=70;i++)
+{
+document.write("(<option>"+i+"</option>)");
+}
+</script>
+</select></td>
+<tr><th>Location</th>
+<td> <div class="autocomplete" style="width:300px;">
+<input id="myIn" type="text" name="myCountry" placeholder="location" required >
+</div>
+</form></td>
+<script>
+function autocomplete(inp, arr) {
+/*the autocomplete function takes two arguments,
+
+the text field element and an array of possible autocompleted values:*/ var currentFocus;
+/*execute a function when someone writes in the text field:*/ inp.addEventListener("input", function(e) {
+var a, b, i, Val = this. Value;
+
+/*close any already open lists of autocompleted values*/ closeAllLists();
+if (!val) { return false;} currentFocus = -1;
+/*create a DIV element that will contain the items (values):*/ a = document.createElement("DIV");
+a.setAttribute("id", this.id + "autocomplete-list"); a.setAttribute("class", "autocomplete-items");
+/*append the DIV element as a child of the autocomplete container:*/ this.parentNode.appendChild(a);
+/*for each item in the array...*/ for (i = 0; i < arr.length; i++) {
+/*check if the item starts with the same letters as the text field value:*/ if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+/*create a DIV element for each matching element:*/ b = document.createElement("DIV");
+/*make the matching letters bold:*/
+b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>"; b.innerHTML += arr[i].substr(val.length);
+/*insert a input field that will hold the current array item's value:*/
+b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+/*execute a function when someone clicks on the item value (DIV element):*/ b.addEventListener("click", function(e) {
+
+
+/*insert the value for the autocomplete text field:*/ inp.value = this.getElementsByTagName("input")[0].value;
+
+/*close the list of autocompleted values,
+(or any other open lists of autocompleted values:*/
+closeAllLists();
+});
+a.appendChild(b);
+}
+}
+});
+/*execute a function presses a key on the keyboard:*/ inp.addEventListener("keydown", function(e) {
+var x = document.getElementById(this.id + "autocomplete
+list"); if (x) x = x.getElementsByTagName("div");
+if (e.keyCode == 40) {
+/*If the arrow DOWN key is pressed, increase the currentFocus variable:*/ currentFocus++;
+/*and and make the current item more visible:*/
+
+addActive(x);
+} else if (e.keyCode == 38) { //up
+/*If the arrow UP key is pressed, decrease the currentFocus variable:*/ currentFocus--;
+/*and and make the current item more visible:*/ addActive(x);
+} else if (e.keyCode == 13) {
+/*If the ENTER key is pressed, prevent the form from being submitted,*/ e.preventDefault();
+if (currentFocus > -1) {
+
+/*and simulate a click on the "active"
+item:*/ if (x) x[currentFocus].click();
+}
+}
+});
+function addActive(x) {
+/*a function to classify an item as "active":*/ if (!x) return false;
+/*start by removing the "active" class on all items:*/ removeActive(x);
+if (currentFocus >= x.length) currentFocus = 0;
+if (currentFocus < 0) currentFocus = (x.length - 1);
+/*add class "autocomplete-active":*/ x[currentFocus].classList.add("autocomplete-active")
+}
+function removeActive(x) {
+/*a function to remove the "active" class from all autocomplete
+items:*/ for (var i = 0; i < x.length; i++) {
+x[i].classList.remove("autocomplete-active");
+}
+}
+function closeAllLists(elmnt) {
+/*close all autocomplete lists in the document, except the one passed as an argument:*/
+var x = document.getElementsByClassName("autocomplete
+items"); for (var i = 0; i < x.length; i++) {
+if (elmnt != x[i] && elmnt != inp)
+x[i].parentNode.removeChild(x[i]);
+}
+}
+}
+/*execute a function when someone clicks in the document:*/ document.addEventListener("click", function (e) {
+closeAllLists(e.target)});
+}
+/*An array containing all the country names in the world:*/
+/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+
+autocomplete(document.getElementById("myIn"), countries);
+</script>
+</tr>
+<tr>
+<th>user_id</th><td><input type="text" placeholder="user id" name="ui" required /></td>
+</tr>
+<tr><th>Image</th><td><input type="file" name="f" required ></td></tr>
+<tr>
+<td><button type="submit" class="registerbtn">Register</button></td>
+</tr>
+</div>
+<tr>
+<td colspan="2">Already registered!! <a href="login.jsp">Login Here</a></td>
+</tr>
+</table>
+</form>
+</body>
+</html>
